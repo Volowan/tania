@@ -6,7 +6,8 @@ import time
 def creerfenetre(res):
     global screen
     screen = pygame.display.set_mode(res)
-    pygame.display.set_caption("Chess bot Néoukommm")
+    pygame.display.set_caption("TANIA")
+    pygame.display.set_icon(pygame_icon)
     screen.fill(backgroundcolor)
     pygame.display.flip()
 

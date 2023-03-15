@@ -1,13 +1,16 @@
 import pygame
+import os
 
 pygame.init()
 
 launched = True
 screen = pygame.display.set_mode((1,1))
-
-miniboard = True
+miniboard = False
 player_view = 'w'
 mouse_pressed = False
+
+
+pygame_icon = pygame.image.load(os.path.join('data',os.path.join('images','volowan_logo_mini.png')))
 
 starting_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 

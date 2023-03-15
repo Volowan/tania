@@ -14,7 +14,7 @@ def mousepos2square(mousepos):
 
 def middlesquare2pos(square):
     global player_view
-    return((square[0]+0.5)*width_square,((7-square[1])+0.5)*width_square)
+    return(((square[0]+0.5)*width_square,((7-square[1])+0.5)*width_square) if player_view == 'w' else ((7-square[0]+0.5)*width_square,((square[1])+0.5)*width_square))
 
 def coord_to_filerow(coord):
     return(chr(coord[0]+97)+str(coord[1]+1))

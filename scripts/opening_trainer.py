@@ -21,7 +21,7 @@ legal_moves = f_chs.all_legal_moves(curr_position)
 print(f"Number of legal moves are {len(legal_moves)}")
 human_legal_moves = []
 for move in legal_moves:
-    human_legal_moves.append((f_utl.coord_to_filerow(move[0]),f_utl.coord_to_filerow(move[1])))
+human_legal_moves.append((f_utl.coord_to_filerow(move[0]),f_utl.coord_to_filerow(move[1])))
 """
 
 

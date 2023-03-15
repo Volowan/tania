@@ -1,0 +1,32 @@
+But du programme:
+
+Programmer un jeu d'echecs, puis programmer un mini IA capable
+de battre les bots les plus faibles de chess.com, voir pourquoi
+pas de me battre moi.
+
+p = pawn
+R = rook
+N = knight
+B = bishop
+Q = queen
+K = king
+
+white = 1 = 'w'
+black = 0 = 'b'
+
+example:
+piece = bN
+
+
+COMMENT L'AMELIORER:
+Compter en terme d'un nombre de positions et pas d'un nombre de profondeur
+(ou en tout cas l'ameliorer en finale car il schlingue,
+par exemple en augmentant la profondeur en cas de peu de pieces sur l'echiquier,
+ou alors si c'est un echec on ne diminue pas la profondeur de calcul dans la boucle)
+
+
+Lui apprendre qu'echanger les rois n'est pas egal à une valeur de 0
+Lui apprendre qu'un pat vaut 0 points
+Lui apprendre à roquer
+Lui apprendre les promotions
+Lui apprendre les egalités par répétition

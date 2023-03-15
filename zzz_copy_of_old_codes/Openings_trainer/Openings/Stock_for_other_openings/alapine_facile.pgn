@@ -1,0 +1,39 @@
+[Event "OpenW Alapine facile: 2... d5"]
+[Site "https://lichess.org/study/Tn5tlSUG/CbCx4gFr"]
+[Result "*"]
+[UTCDate "2022.09.02"]
+[UTCTime "14:48:23"]
+[Variant "Standard"]
+[ECO "B22"]
+[Opening "Sicilian Defense: Alapin Variation, Barmen Defense"]
+[Annotator "https://lichess.org/@/Volowan"]
+
+1. e4 c5 2. c3 d5 3. exd5 Qxd5 4. d4 Nc6 (4... e5 5. dxe5 Qxd1+ (5... Qxe5+ 6. Be3 Nf6 7. Nf3 Qc7 8. Na3) 6. Kxd1 Nc6 7. Bf4 Bg4+ 8. Be2 O-O-O+ 9. Nd2 Bxe2+ 10. Kxe2 Nge7 11. Ngf3 Ng6 12. Bg3 Re8 13. Kd1 Ngxe5 14. Nxe5 Nxe5 15. Re1 Bd6 16. Ne4 Bc7 17. Nxc5)  (4... g6 5. Nf3 Bg7 6. Na3 { [%cal Gf1c4,Ga3b5,Gb5c7] } 6... cxd4 7. Bc4 Qe4+ (7... Qd8 8. Qb3 e6 9. Bg5 Ne7 10. Nxd4 Bxd4 11. cxd4 Qxd4 12. Nb5) 8. Be3 dxe3 (8... Nh6 9. cxd4 O-O 10. O-O) 9. Bxf7+ Kxf7 (9... Kf8 10. Qd8+ Kxf7 11. Ng5+) 10. Ng5+)  (4... e6 5. Na3 { [%cal Ga3b5,Gf1c4] } 5... Nf6 (5... cxd4 6. Nb5 Qd8 7. Bf4 Na6 8. Qa4 Bd7 9. Qxd4) 6. Be3 Nc6 (6... cxd4 7. Nb5 Qd8 8. Qxd4 Qxd4 9. Bxd4 Na6 10. Be2 { [%cal Ge2f3,Gg1e2] }) 7. dxc5 Bxc5 (7... Qxd1+ 8. Rxd1) 8. Qxd5 Nxd5 9. Bxc5) 5. Nf3 Bg4 (5... Nf6 6. Be3 cxd4 7. cxd4 e6 8. Nc3 Qd6 9. Bd3 Be7 10. O-O O-O 11. a3) 6. Be2 e6 (6... cxd4 7. cxd4 Bxf3 8. Bxf3 Qxd4 9. Bxc6+ bxc6 10. Qxd4) 7. h3 Bxf3 (7... Bh5 8. c4 Qd7 9. g4 Bg6 10. d5 exd5 11. cxd5 Nb4 12. Ne5 Qxd5 13. Bb5+ Kd8 14. O-O Qxd1 15. Rxd1+ Kc8 16. Bf4 Nc2 17. Bd7+ Kd8 (17... Kb8 18. Nc6#)  (17... Kc7 18. Nxg6+ Kb6 19. Nxh8) 18. Ba4+ Nd4 19. Nf3) 8. Bxf3 *
+
+
+[Event "OpenW Alapine facile: 2... Nf6"]
+[Site "https://lichess.org/study/Tn5tlSUG/LrPOPxzQ"]
+[Result "*"]
+[UTCDate "2022.09.02"]
+[UTCTime "15:18:28"]
+[Variant "Standard"]
+[ECO "B22"]
+[Opening "Sicilian Defense: Alapin Variation, Smith-Morra Declined"]
+[Annotator "https://lichess.org/@/Volowan"]
+
+1. e4 c5 2. c3 Nf6 3. e5 Nd5 (3... Ne4 4. d3) 4. d4 cxd4 5. Qxd4 e6 (5... Nc7 6. Nf3 Ne6 (6... Nc6 7. Qe4 d5 8. exd6 Qxd6 9. Bf4 Qe6 10. Bd3 Nd5 11. Bg3 Nf6 12. Qxe6 Bxe6 13. Na3) 7. Qh4 g6 8. Bc4 Bg7 9. Bh6) 6. Nf3 Nc6 7. Qe4 Be7 (7... d6 8. Bb5 Bd7 9. c4 Nc7 (9... Nb6 10. exd6 Bxd6 11. O-O a6 12. Rd1 Qc7 13. Nc3 axb5 (13... O-O 14. Be3 Nc8 15. c5 Be7 16. Bf1) 14. Nxb5) 10. exd6 Bxd6 11. O-O Nxb5 12. cxb5 Ne7 13. Nc3 Qb8 14. Rd1)  (7... f5 8. Qe2 { [%cal Gg2g3,Gf1g2] } 8... Qc7 9. g3 Be7 (9... b5 10. Bg2 a5 11. O-O Ba6 12. Nh4 b4 (12... g6 13. Bxd5 exd5 14. Re1) 13. Qh5+ g6 14. Nxg6)  (9... d6 10. exd6 Bxd6 11. Bg2 O-O 12. O-O) 10. Bg2 O-O 11. O-O) 8. Qg4 O-O 9. Bh6 *
+
+
+[Event "OpenW Alapine facile: Annexes"]
+[Site "https://lichess.org/study/Tn5tlSUG/Egzq42ZZ"]
+[Result "*"]
+[UTCDate "2022.09.02"]
+[UTCTime "15:37:21"]
+[Variant "Standard"]
+[ECO "B22"]
+[Opening "Sicilian Defense: Alapin Variation"]
+[Annotator "https://lichess.org/@/Volowan"]
+
+1. e4 c5 2. c3 e5 (2... e6 3. d4 d5 4. e5 { Francaise d'avance btw :) })  (2... b6 3. d4 Bb7 4. Bd3 Nf6 5. Nd2 cxd4 6. cxd4 Nc6 7. Ne2 Nb4 (7... d6 8. O-O e6 9. Nf3) 8. Bb1 Ba6 9. Nf3)  (2... d6 3. d4 Nf6 4. Bd3 cxd4 (4... g6 5. h3 Bg7 6. Nf3 O-O 7. O-O Nc6 8. d5 Ne5 (8... Nb8 9. Re1) 9. Nxe5 dxe5 10. Be3) 5. cxd4 Nc6 6. Nf3 e6 7. Nc3 a6 8. O-O Be7 9. Qe2 O-O 10. e5 dxe5 11. dxe5 Ne8 12. Qe4)  (2... g6 3. d4 cxd4 4. cxd4 d5 5. e5 Bg7 6. h3 Nh6 7. Nf3 O-O 8. Nc3 Bf5 9. Bd3 Nc6 10. O-O Rc8 11. Bxh6 Bxh6 12. Bxf5 gxf5 13. Qb3 e6 14. Qxb7 Rc7 15. Qb5 Qd7 16. Qe2 { Partie de Vlad }) 3. Nf3 Nc6 4. Bc4 Nf6 (4... d6 5. d4 cxd4 (5... Be7 6. dxc5 dxc5 7. O-O) 6. cxd4 exd4 7. Nxd4 Nxd4 8. Qxd4) 5. d3 Be7 6. O-O O-O 7. Re1 d6 8. a4 Rb8 9. Nbd2 a6 10. Nf1 b5 11. Ba2 Be6 12. Ne3 Bxa2 13. Rxa2 b4 14. Nf5 { Partie de MVL } *
+
+

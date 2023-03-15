@@ -1,0 +1,30 @@
+[Event "Test 100 finales: Pawn vs King"]
+[Site "https://lichess.org/study/CIhzYoej/IoaNdb1l"]
+[Result "*"]
+[UTCDate "2022.11.06"]
+[UTCTime "16:03:51"]
+[Variant "Standard"]
+[ECO "?"]
+[Opening "?"]
+[Annotator "https://lichess.org/@/Volowan"]
+[FEN "8/8/3k4/8/3K4/8/3P4/8 w - - 0 1"]
+[SetUp "1"]
+
+1. d3 { Simplest move, here black to move and we have the opposition } 1... Kc6 (1... Ke6 2. Kc5) 2. Ke5 Kd7 3. Kd5 Ke7 4. Kc6 Kd8 5. Kd6 Ke8 6. d4 Kd8 7. d5 Ke8 8. Kc7 Ke7 9. d6+ *
+
+
+[Event "Test 100 finales: mate of queen"]
+[Site "https://lichess.org/study/CIhzYoej/Bpc5uGQW"]
+[Result "*"]
+[UTCDate "2022.11.06"]
+[UTCTime "22:35:14"]
+[Variant "Standard"]
+[ECO "?"]
+[Opening "?"]
+[Annotator "https://lichess.org/@/Volowan"]
+[FEN "k7/3Q4/3K4/7p/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+
+1. Kc6 Kb8 (1... h4 2. Qb7#) 2. Qb7# *
+
+

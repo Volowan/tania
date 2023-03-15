@@ -1,0 +1,33 @@
+About the numbers
+
+White is 0
+Black is 1
+
+Rows and columns both go 0-7
+
+class Position:
+    def __init__(self, whiteppieces, blackppieces, castle, semiturn, caseenpassant = None):
+        self.whitepieces = whiteppieces
+        self.blackpieces = blackppieces
+        self.board = [[None]*8]*8
+        self.castles = castle
+        self.halfturn = int(semiturn)
+        self.enpassant = caseenpassant
+        for piece in (self.whitepieces + self.blackpieces):
+            self.board[piece.file][piece.row] = piece
+
+
+class Piece:
+    """
+    Piece of chess
+    """
+
+    symbol_terminal={'bK':'♔','bQ':'♕','bR':'♖','bB':'♗','bN':'♘','bp':'♙','wK':'♚','wQ':'♛','wR':'♜','wB':'♝','wN':'♞','wp':'♟'}
+    position_on_sprite = {'bK':(0,1),'bQ':(1,1),'bR':(4,1),'bB':(2,1),'bN':(3,1),'bp':(5,1),'wK':(0,0),'wQ':(1,0),'wR':(4,0),'wB':(2,0),'wN':(3,0),'wp':(5,0)}
+    def __init__(self, team, kind, numrow, numcol, movedyett = False):
+        self.color = team #'w' white, 'b' black
+        self.type = kind #The letter of the piece
+        self.row = numrow
+        self.file = numcol
+        self.symbol = f"{Piece.symbol_terminal[team+kind]} "
+        self.position_sprite = Piece.position_on_sprite[team+kind]

@@ -1,0 +1,13 @@
+[Event "Volowan's Tests for prog: repertoire_for_black"]
+[Site "https://lichess.org/study/GOBXhcfa/YCZD0UcQ"]
+[Result "*"]
+[UTCDate "2023.03.15"]
+[UTCTime "13:24:51"]
+[Variant "Standard"]
+[ECO "B00"]
+[Opening "Pirc Defense"]
+[Annotator "https://lichess.org/@/Volowan"]
+
+1. e4 (1. d4 Nf6) 1... d6 *
+
+

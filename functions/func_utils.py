@@ -25,7 +25,7 @@ def filerow_to_coord(filerow):
     return(coord)
 
 def possible_square(sq):
-    if sq[0]>=0 and sq[0]<=7 and sq[1]>= 0 and sq[1]<=7:
+    if sq[0] in range(8) and sq[1]in range(8):
         return(True)
     else:
         return(False)

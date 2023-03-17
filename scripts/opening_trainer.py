@@ -73,8 +73,9 @@ while launched:
                 f_vis.actualiserfenetre(curr_position,player_view,coord_piece = sq1,grabed_piece = grabed_piece,mousepos = (x,y),last_move=last_move)
         if event.type == pygame.MOUSEBUTTONDOWN:
             sq1 = f_utl.mousepos2square(event.pos,player_view)
-            grabed_piece = curr_position.board[7-sq1[1]][sq1[0]]
-            mouse_pressed = True
+            if f_utl.possible_square(sq1):
+                grabed_piece = curr_position.board[7-sq1[1]][sq1[0]]
+                mouse_pressed = True
         if event.type == pygame.MOUSEBUTTONUP:
             mouse_pressed = False
             f_vis.actualiserfenetre(curr_position,player_view,last_move=last_move)
@@ -133,4 +134,7 @@ while launched:
                     for i in range(number_of_repetitons):
                         all_training_lines_redo.append(all_training_lines[index_line_questionned])
             else:
-                print(f"Illegal moves {f_utl.coord_to_filerow(sq1)} to {f_utl.coord_to_filerow(sq2)}")
+                if  f_utl.possible_square(sq1) and f_utl.possible_square(sq2):
+                    print(f"Illegal moves {f_utl.coord_to_filerow(sq1)} to {f_utl.coord_to_filerow(sq2)}")
+                else:
+                    print("Outside of board")

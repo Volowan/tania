@@ -144,23 +144,32 @@ def clean_line(rawline):
     clean_line = ' '.join(cleaner_list)
     return(clean_line)
 
-def get_all_lines_from_folder(path_of_opening,subfolder):
-    if subfolder == 'b':
+def get_all_lines_from_folder(path_of_opening,color_tested):
+    all_lines=[]
+    if 'b' in color_tested:
         path = os.path.join(path_of_opening,'black_openings')
-    if subfolder == 'w':
+        files = os.listdir(path)
+        all_lines_one_file = []
+        index_line = 1
+        for file in files:
+            if os.path.isfile(os.path.join(path, file)):
+                all_lines_one_file = get_all_lines_from_pgn(os.path.join(path, file),'b')
+                print(f"Lines {index_line} to {index_line+len(all_lines_one_file)-1}")
+                index_line += len(all_lines_one_file)
+                all_lines = all_lines + all_lines_one_file
+    if 'w' in color_tested:
         path = os.path.join(path_of_opening,'white_openings')
-    if subfolder == 'o':
+        files = os.listdir(path)
+        all_lines_one_file = []
+        index_line = 1
+        for file in files:
+            if os.path.isfile(os.path.join(path, file)):
+                all_lines_one_file = get_all_lines_from_pgn(os.path.join(path, file),'w')
+                print(f"Lines {index_line} to {index_line+len(all_lines_one_file)-1}")
+                index_line += len(all_lines_one_file)
+                all_lines = all_lines + all_lines_one_file
+    elif color_tested == 'o':
         path = os.path.join(path_of_opening,'other_positions')
-    files = os.listdir(path)
-    all_lines = []
-    all_lines_one_file = []
-    index_line = 1
-    for file in files:
-        if os.path.isfile(os.path.join(path, file)):
-            all_lines_one_file = get_all_lines_from_pgn(os.path.join(path, file),subfolder)
-            print(f"Lines {index_line} to {index_line+len(all_lines_one_file)-1}")
-            index_line += len(all_lines_one_file)
-            all_lines = all_lines + all_lines_one_file
     return(all_lines)
 
 

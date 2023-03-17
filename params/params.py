@@ -38,7 +38,7 @@ else:
 
 width_square = border_chessboard_pix//8#px
 
-menu_width_pix = 0#px#200#px
+menu_width_pix = 200#px#200#px
 
 res_screen = (border_chessboard_pix+menu_width_pix, border_chessboard_pix)
 

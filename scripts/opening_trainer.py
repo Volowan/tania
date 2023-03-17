@@ -9,7 +9,7 @@ import functions.func_chess as f_chs
 import functions.func_utils as f_utl
 import functions.func_visual as f_vis
 
-tested_color = 'b'#'w','b' or 'wb'
+tested_color = 'wb'#'w','b' or 'wb'
 player_view = tested_color[0]
 init_position = Position(starting_fen)
 #curr_position = f_utl.copyposition(init_position)
@@ -36,6 +36,7 @@ random.shuffle(all_training_lines)
 asked_line = all_training_lines[index_line_questionned][1]
 curr_position = Position(all_training_lines[index_line_questionned][0])
 legal_moves = f_chs.all_legal_moves(curr_position)
+player_view = all_training_lines[index_line_questionned][2]
 f_vis.actualiserfenetre(curr_position,player_view,last_move=last_move)
 asked_line_list = asked_line.split()
 print(f"Asking line {index_line_questionned}/{all_lines_length}")
@@ -88,8 +89,8 @@ while launched:
                     time.sleep(2)
                     last_move = None
                     index_line_questionned += 1
-                    print(f"len of all_training_lines {len(all_training_lines)} and index {index_line_questionned}")
-                    print(f"training list == training redo : {all_training_lines== all_training_lines_redo }")
+                    #print(f"len of all_training_lines {len(all_training_lines)} and index {index_line_questionned}")
+                    #print(f"training list == training redo : {all_training_lines== all_training_lines_redo }")
                     if len(all_training_lines) == index_line_questionned and (len(all_training_lines_redo)==0 or all_training_lines == all_training_lines_redo):
                         print("Training finished")
                         launched = False
@@ -100,6 +101,7 @@ while launched:
                         all_training_lines = all_training_lines_redo
                     semi_move_number = 0
                     asked_line_list = all_training_lines[index_line_questionned][1].split()
+                    player_view = all_training_lines[index_line_questionned][2]
                     curr_position = f_utl.copyposition(Position(all_training_lines[index_line_questionned][0]))
                     f_vis.actualiserfenetre(curr_position,all_training_lines[index_line_questionned][2])
                     correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[0])
@@ -126,6 +128,7 @@ while launched:
                     semi_move_number += 1
                     correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
             elif (sq1,sq2) in legal_moves:
+                print("Line added to revision")
                 if all_training_lines[index_line_questionned] not in all_training_lines_redo:
                     for i in range(number_of_repetitons):
                         all_training_lines_redo.append(all_training_lines[index_line_questionned])

@@ -10,7 +10,6 @@ mouse_pressed = False
 
 number_of_repetitons = 3 #In case of wrong answer
 
-
 pygame_icon = pygame.image.load(os.path.join('data',os.path.join('images','volowan_logo_mini.png')))
 
 starting_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"

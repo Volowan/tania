@@ -2,6 +2,7 @@ import pygame
 import functions.func_utils as f_utl
 from params.params import *
 import time
+import math as m
 
 def creerfenetre(res):
     global screen
@@ -11,12 +12,13 @@ def creerfenetre(res):
     screen.fill(backgroundcolor)
     pygame.display.flip()
 
-def actualiserfenetre(position,player_view,grabed_piece=None,coord_piece = None,mousepos = None,texte1='',texte2='',last_move=None):
+def actualiserfenetre(position,player_view,arrows_list,grabed_piece=None,coord_piece = None,mousepos = None,texte1='',texte2='',last_move=None):
     global width_square, colorlight, colorlighthighlight, colordark, colordarkhighlight, screen
     afficherdamier(width_square,colorlight,colordark)
     afficherhighlight(width_square, colorlighthighlight, colordarkhighlight,player_view,last_move)
     afficherpieces(position,width_square,player_view,coord_piece,grabed_piece,mousepos)
     affichertexte(texte1,texte2)
+    afficherfleches(player_view,arrows_list)
     pygame.display.flip()
 
 def afficherdamier(width_square,colorlight,colordark):
@@ -69,6 +71,33 @@ def affichertexte(texte1,texte2):
         text_2 = arial_font.render(texte2, True, (0,0,0))
         screen.blit(text_1, (border_chessboard_pix +10,10))
         screen.blit(text_2, (border_chessboard_pix+10,40))
+
+def afficherfleches(player_view,arrows_list = [((6,0),(5,2)),((4,1),(4,3))]):
+    for arrow in arrows_list:
+        draw_fleche(f_utl.middlesquare2pos(arrow[0],player_view),f_utl.middlesquare2pos(arrow[1],player_view))
+
+def draw_fleche(coord_start,coord_end):
+    global screen,width_square
+    xi, yi = coord_start
+    xf, yf = coord_end
+    if xi==xf:
+        if yi > yf:
+            rev_angle = m.pi/2
+        else:
+            rev_angle = 3*m.pi/2
+    else:
+        if xi > xf:
+            rev_angle = m.atan((yi-yf)/(xi-xf))
+        else:
+            rev_angle = m.atan((yi-yf)/(xi-xf))+m.pi
+    ap_angle = (m.pi/6)#aperture angle of the arrow
+    ang_plus = rev_angle+ap_angle
+    ang_minus = rev_angle-ap_angle
+    little_length=20
+    pygame.draw.line(screen,(255,255,0),coord_start,coord_end,width=5)
+    pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]+int(little_length*m.cos(ang_plus)),coord_end[1]+int(little_length*m.sin(ang_plus))),width=5)
+    pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]+int(little_length*m.cos(ang_minus)),coord_end[1]+int(little_length*m.sin(ang_minus))),width=5)
+    #pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]-width_square//4,coord_end[1]-width_square//3),width=5)
 
 def afficherpromotion(position):
     global width_square,screen

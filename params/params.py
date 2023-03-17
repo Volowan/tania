@@ -5,9 +5,10 @@ pygame.init()
 
 launched = True
 screen = pygame.display.set_mode((1,1))
-miniboard = False
-player_view = 'w'
+miniboard = True
 mouse_pressed = False
+
+number_of_repetitons = 3 #In case of wrong answer
 
 
 pygame_icon = pygame.image.load(os.path.join('data',os.path.join('images','volowan_logo_mini.png')))
@@ -37,14 +38,14 @@ else:
 
 width_square = border_chessboard_pix//8#px
 
-menu_width_pix = 200#px
+menu_width_pix = 0#px#200#px
 
 res_screen = (border_chessboard_pix+menu_width_pix, border_chessboard_pix)
 
 setcolor1 = [(130, 150, 130),(100, 120, 100),(160, 170, 80),(140, 150, 65),(200, 200, 200)]
 setcolor2 = [(136,164,186),(105,134,152),(149,184,114),(132,165,94),(70,70,70)]
 
-colorlight,colordark,colorlighthighlight,colordarkhighlight,backgroundcolor = setcolor1
+colorlight,colordark,colorlighthighlight,colordarkhighlight,backgroundcolor = setcolor2
 
 possprite = {
     'K':(0,0),

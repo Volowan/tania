@@ -8,12 +8,10 @@ from params.params import *
 def dist(x,y):
     return((x**2+y**2)**0.5)
 
-def mousepos2square(mousepos):
-    global player_view
+def mousepos2square(mousepos,player_view):
     return(((mousepos[0]//width_square,7-(mousepos[1]//width_square)) if player_view == 'w' else (7-(mousepos[0]//width_square),mousepos[1]//width_square)))
 
-def middlesquare2pos(square):
-    global player_view
+def middlesquare2pos(square,player_view):
     return(((square[0]+0.5)*width_square,((7-square[1])+0.5)*width_square) if player_view == 'w' else ((7-square[0]+0.5)*width_square,((square[1])+0.5)*width_square))
 
 def coord_to_filerow(coord):
@@ -54,11 +52,11 @@ def get_all_pieces(position):
             pos = [pos[0]+int(char),pos[1]]
     return(all_w_pieces,all_b_pieces)
 
-def get_all_lines_from_pgn(pgnpath):
+def get_all_lines_from_pgn(pgnpath,color):
     chapters = get_all_chapters_from_pgn(pgnpath)
     all_lines = []
     for chapter in chapters:
-        all_lines += get_all_lines_from_chapter(chapter)
+        all_lines += get_all_lines_from_chapter(chapter,color)
     return(all_lines)
 
 def get_all_chapters_from_pgn(pgnpath):
@@ -81,16 +79,16 @@ def get_all_chapters_from_pgn(pgnpath):
                 fen_of_chapter = starting_fen
     return(chapters)
 
-def get_all_lines_from_chapter(chapter):
+def get_all_lines_from_chapter(chapter,color):
     """
     take as an input a list of lists [fen,line_from_fen] and exits a list of all lines
     """
     chapter[1] = eliminate_useless_in_long_line(chapter[1])
     long_line = chapter[1]
-    all_lines = get_all_lines_from_clean_line(chapter[0],long_line)
+    all_lines = get_all_lines_from_clean_line(chapter[0],long_line,color)
     return(all_lines)
 
-def get_all_lines_from_clean_line(starting_fen,long_line):
+def get_all_lines_from_clean_line(starting_fen,long_line,color):
     all_lines = []
     long_line_list = long_line.split()
     while long_line_list:
@@ -104,11 +102,11 @@ def get_all_lines_from_clean_line(starting_fen,long_line):
                 del line_found_list[last_opening_parenthesis-1]
                 line_found = ' '.join(line_found_list)
                 line_without_parenthesis = ''.join(line_found.split('('))#)
-                all_lines.append([starting_fen,line_without_parenthesis])
+                all_lines.append([starting_fen,line_without_parenthesis,color])
                 long_line_list = long_line_list[:last_opening_parenthesis]+ long_line_list[i+1:]
                 break
         if last_opening_parenthesis == 0:
-            all_lines.append([starting_fen,' '.join(long_line_list)])
+            all_lines.append([starting_fen,' '.join(long_line_list),color])
             long_line_list = []
     return(all_lines)
 
@@ -159,7 +157,7 @@ def get_all_lines_from_folder(path_of_opening,subfolder):
     index_line = 1
     for file in files:
         if os.path.isfile(os.path.join(path, file)):
-            all_lines_one_file = get_all_lines_from_pgn(os.path.join(path, file))
+            all_lines_one_file = get_all_lines_from_pgn(os.path.join(path, file),subfolder)
             print(f"Lines {index_line} to {index_line+len(all_lines_one_file)-1}")
             index_line += len(all_lines_one_file)
             all_lines = all_lines + all_lines_one_file

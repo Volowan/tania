@@ -26,7 +26,7 @@ init_rook_castle_correspondance ={
     (0,7):'q',
     (7,7):'k'}
 
-promotion_showed = True
+promotion_showed = False
 
 if not miniboard:
     border_chessboard_pix = 800

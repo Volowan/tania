@@ -21,6 +21,7 @@ def file_to_coord(file):
     return(ord(file)-97)
 
 def filerow_to_coord(filerow):
+    print(f"Doing filerow_to_coord({filerow})")
     coord = (file_to_coord(filerow[0]),int(filerow[1])-1)
     return(coord)
 
@@ -206,7 +207,7 @@ def hum2comp_movename(position,movetext):
     if movetext[-1] in ['Q','R','B','N']:
         promotion = True
         promotion_letter = movetext[-1]
-        movetext = movetext[-2]
+        movetext = movetext[:-2]
     if not promotion:
         arriving_coord = filerow_to_coord(movetext[-2:])
     if promotion:

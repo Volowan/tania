@@ -21,7 +21,6 @@ def file_to_coord(file):
     return(ord(file)-97)
 
 def filerow_to_coord(filerow):
-    print(f"Doing filerow_to_coord({filerow})")
     coord = (file_to_coord(filerow[0]),int(filerow[1])-1)
     return(coord)
 
@@ -88,10 +87,11 @@ def get_all_lines_from_chapter(chapter,color):
     long_line = chapter[1]
     all_lines = get_all_lines_from_clean_line(chapter[0],long_line,color)
     return(all_lines)
-
+"""
 def get_all_lines_from_clean_line(starting_fen,long_line,color):
     all_lines = []
     long_line_list = long_line.split()
+    print(f"long line list = {long_line_list}")
     while long_line_list:
         last_opening_parenthesis = 0
         for i in range(len(long_line_list)):
@@ -103,13 +103,44 @@ def get_all_lines_from_clean_line(starting_fen,long_line,color):
                 del line_found_list[last_opening_parenthesis-1]
                 line_found = ' '.join(line_found_list)
                 line_without_parenthesis = ''.join(line_found.split('('))#)
+                print(f"Add: {line_without_parenthesis}")
                 all_lines.append([starting_fen,line_without_parenthesis,color])
                 long_line_list = long_line_list[:last_opening_parenthesis]+ long_line_list[i+1:]
                 break
         if last_opening_parenthesis == 0:
+            print(f"Add: {' '.join(long_line_list)}")
             all_lines.append([starting_fen,' '.join(long_line_list),color])
             long_line_list = []
     return(all_lines)
+"""
+def get_all_lines_from_clean_line(starting_fen,long_line,color):
+    all_lines = []
+    current_line = []
+    long_line_list = long_line.split()
+    print(f"long line list = {long_line_list}")
+    while long_line_list:
+        last_opening_parenthesis = 0
+        for index_move,move in enumerate(long_line_list):
+            if move[0] == '(':
+                last_opening_parenthesis = index_move
+                del current_line[-1]
+                current_line.append(move[1:])#to remove oppening parenthesis
+            elif move[-1] == ')':
+                current_line.append(move[:-1])#to remove closing parenthesis
+                all_lines.append([starting_fen,' '.join(current_line),color])
+                #print(' '.join(current_line))
+                #print(long_line_list)
+                long_line_list = long_line_list[:last_opening_parenthesis]+long_line_list[index_move+1:]
+                current_line = []
+                break
+            else:
+                current_line.append(move)
+        if last_opening_parenthesis == 0:
+            all_lines.append([starting_fen,' '.join(current_line),color])
+            long_line_list = ''
+    return(all_lines)
+
+
 
 def eliminate_useless_in_long_line(long_line):
     """
@@ -120,12 +151,14 @@ def eliminate_useless_in_long_line(long_line):
                 if long_line[j] == '{':
                     indexparopen = j
                 elif long_line[j] == '}':
+                    print(f"Eliminate '{long_line[indexparopen:j+1]}', but one char after is {long_line[j+1]}")
                     long_line = long_line[:indexparopen]+long_line[j+1:]
                     break
-    long_line_sub = long_line.split("(")#It is not mandatorya to take ) into account for now
+    long_line_sub = long_line.split("(")#It is not mandatory to take ) into account for now
     for i in range(len(long_line_sub)):
-        long_line_sub[i] = ' '.join([texte for texte in long_line_sub[i].split() if texte[0].isalpha()])#Suppress all non moves numbers
+        long_line_sub[i] = ' '.join([texte for texte in long_line_sub[i].split() if (texte[0].isalpha() or texte==')')])#Suppress all non moves numbers
     long_line = ' ('.join(long_line_sub)#)
+    print(long_line)
     return(long_line)
 
 def clean_line(rawline):
@@ -247,6 +280,7 @@ def hum2comp_movename(position,movetext):
             starting_coord = possible_piece_position[0]
             return((starting_coord,arriving_coord))
         else:
+            print(f"on line 249, movetext = {movetext}")
             confusion = movetext[1:]
             human_possible_piece_position = [coord_to_filerow(c) for c in possible_piece_position]
             for i in range(len(possible_piece_position)):

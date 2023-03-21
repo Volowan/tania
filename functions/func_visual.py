@@ -13,9 +13,10 @@ def creerfenetre(res):
     pygame.display.flip()
 
 def actualiserfenetre(position,player_view,arrows_list,grabed_piece=None,coord_piece = None,mousepos = None,texte1='',texte2='',last_move=None):
-    global width_square, colorlight, colorlighthighlight, colordark, colordarkhighlight, screen
+    global width_square, colorlight, colorlighthighlight, colordark, colordarkhighlight,colorlightevidence, colordarkevidence, screen
     afficherdamier(width_square,colorlight,colordark)
     afficherhighlight(width_square, colorlighthighlight, colordarkhighlight,player_view,last_move)
+    afficherevidence(player_view,arrows_list,colorlightevidence, colordarkevidence)
     afficherpieces(position,width_square,player_view,coord_piece,grabed_piece,mousepos)
     if coord_piece != None and last_move != None and last_move[0] == coord_piece:#Only useful in case of promotion
         afficherhighlight(width_square, colorlighthighlight, colordarkhighlight,player_view,(last_move[0],))
@@ -46,6 +47,18 @@ def afficherhighlight(width_square,colorlighthighlight,colordarkhighlight,side,l
         else:
             pygame.draw.rect(screen,colordarkhighlight,square)
 
+def afficherevidence(player_view,arrows_list,colorlightevidence, colordarkevidence):
+    for arrow in arrows_list:
+        if arrow[0] == arrow[1]:
+            sq = arrow[0] if player_view == 'w' else [7-arrow[0][0],7-arrow[0][1]]
+            square = pygame.Rect(sq[0]*width_square,(7-sq[1])*width_square,width_square,width_square)
+            if (sq[0]+sq[1])%2 == 0:
+                pygame.draw.rect(screen,colordarkevidence,square)
+            else:
+                pygame.draw.rect(screen,colorlightevidence,square)
+
+
+
 def afficherpieces(position,width_square,side,coord_piece,grabed_piece,mousepos):
     global chosen_pieces_sprite,screen
     cursor = [0,0] if side == 'w' else [7*width_square,7*width_square]
@@ -74,9 +87,11 @@ def affichertexte(texte1,texte2):
         screen.blit(text_1, (border_chessboard_pix +10,10))
         screen.blit(text_2, (border_chessboard_pix+10,40))
 
-def afficherfleches(player_view,arrows_list = [((6,0),(5,2)),((4,1),(4,3))]):
+def afficherfleches(player_view,arrows_list):
     for arrow in arrows_list:
-        draw_fleche(f_utl.middlesquare2pos(arrow[0],player_view),f_utl.middlesquare2pos(arrow[1],player_view))
+        if arrow [0] != arrow[1]:
+            draw_fleche(f_utl.middlesquare2pos(arrow[0],player_view),f_utl.middlesquare2pos(arrow[1],player_view))
+
 
 def draw_fleche(coord_start,coord_end):
     global screen,width_square

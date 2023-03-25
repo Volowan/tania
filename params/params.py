@@ -8,6 +8,8 @@ screen = pygame.display.set_mode((1,1))
 miniboard = False
 mouse_pressed = False
 
+tania_version = 'beta'
+
 number_of_repetitons = 3 #In case of wrong answer
 
 pygame_icon = pygame.image.load(os.path.join('data',os.path.join('images','volowan_logo_mini.png')))

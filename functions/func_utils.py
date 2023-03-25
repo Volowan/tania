@@ -117,7 +117,7 @@ def get_all_lines_from_clean_line(starting_fen,long_line,color):
     all_lines = []
     current_line = []
     long_line_list = long_line.split()
-    print(f"long line list = {long_line_list}")
+    #print(f"long line list = {long_line_list}")
     while long_line_list:
         last_opening_parenthesis = 0
         for index_move,move in enumerate(long_line_list):
@@ -151,14 +151,14 @@ def eliminate_useless_in_long_line(long_line):
                 if long_line[j] == '{':
                     indexparopen = j
                 elif long_line[j] == '}':
-                    print(f"Eliminate '{long_line[indexparopen:j+1]}', but one char after is {long_line[j+1]}")
+                    #print(f"Eliminate '{long_line[indexparopen:j+1]}', but one char after is {long_line[j+1]}")
                     long_line = long_line[:indexparopen]+long_line[j+1:]
                     break
     long_line_sub = long_line.split("(")#It is not mandatory to take ) into account for now
     for i in range(len(long_line_sub)):
         long_line_sub[i] = ' '.join([texte for texte in long_line_sub[i].split() if (texte[0].isalpha() or texte==')')])#Suppress all non moves numbers
     long_line = ' ('.join(long_line_sub)#)
-    print(long_line)
+    #print(long_line)
     return(long_line)
 
 def clean_line(rawline):
@@ -287,3 +287,15 @@ def hum2comp_movename(position,movetext):
                 if confusion in human_possible_piece_position[i]:
                     starting_coord = possible_piece_position[i]
             return((starting_coord,arriving_coord))
+
+def check_if_folders_exist(path_to_main):
+    mandatory_folder_from_main = [
+        os.path.join(path_to_main,'..','data'),
+        os.mkdir(os.path.join(path_to_main,'..','data','pgn')),
+        os.mkdir(os.path.join(path_to_main,'..','data','pgn','white_openings')),
+        os.mkdir(os.path.join(path_to_main,'..','data','pgn','black_openings')),
+        os.mkdir(os.path.join(path_to_main,'..','data','pgn','drop'))
+    ]
+    for path in mandatory_folder_from_main:
+        if not os.path.exists(path):
+            os.mkdir(path)

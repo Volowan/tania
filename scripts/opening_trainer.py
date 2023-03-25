@@ -9,6 +9,11 @@ import functions.func_chess as f_chs
 import functions.func_utils as f_utl
 import functions.func_visual as f_vis
 
+
+print(f"Path to main determined as {os.getcwd()}")
+f_utl.check_if_folders_exist(os.getcwd())
+
+
 tested_color = 'w'#'w','b' or 'wb'
 player_view = tested_color[0]
 init_position = Position(starting_fen)
@@ -41,7 +46,7 @@ legal_moves = f_chs.all_legal_moves(curr_position)
 player_view = all_training_lines[index_line_questionned][2]
 f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
 asked_line_list = asked_line.split()
-print(f"Asking line {index_line_questionned+1}/{all_training_lines}")
+print(f"Asking line {index_line_questionned+1}/{len(all_training_lines)}")
 correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[0])
 #print(f"correct move is {correct_move}")
 semi_move_number = 0
@@ -63,14 +68,14 @@ banana_event = pygame.USEREVENT + 1
 pygame.time.set_timer(banana_event, banana_delay)
 ########################
 
-mode = "normal"#"normal" or "promotion"
+promotion = False
 
 while launched:
     pygame.display.flip()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             launched = False
-        if mode == "normal":
+        if promotion == False:
             if event.type == banana_event:
                 if mouse_pressed and grabed_piece != ' ':
                     x,y = pygame.mouse.get_pos()
@@ -151,7 +156,7 @@ while launched:
                                 all_training_lines_redo.append(all_training_lines[index_line_questionned])
                     else:
                         if (sq1,sq2) in [(m[0],m[1][:2]) for m in legal_moves]:#Special case of promotion
-                            mode = "promotion"
+                            promotion = True
                             print("Ceci est une promotion")
                             continue
                         elif  f_utl.possible_square(sq1) and f_utl.possible_square(sq2) and sq1!=sq2:
@@ -166,7 +171,7 @@ while launched:
                         else:
                             arrows_list.remove((sq1_arrow,sq2_arrow))
                         f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
-        elif mode == "promotion":
+        elif promotion == True:
             if not promotion_showed:
                 f_vis.afficherpromotion(curr_position,player_view,sq1,sq2,grabed_piece)
                 promotion_showed = True
@@ -242,5 +247,5 @@ while launched:
                         if all_training_lines[index_line_questionned] not in all_training_lines_redo:
                             for i in range(number_of_repetitons):
                                 all_training_lines_redo.append(all_training_lines[index_line_questionned])
-                    mode = "normal"
+                    promotion = False
                     promotion_showed = False

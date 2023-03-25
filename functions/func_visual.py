@@ -7,7 +7,7 @@ import math as m
 def creerfenetre(res):
     global screen
     screen = pygame.display.set_mode(res)
-    pygame.display.set_caption("TANIA chess beta")
+    pygame.display.set_caption(f"TANIA chess {tania_version}")
     pygame.display.set_icon(pygame_icon)
     screen.fill(backgroundcolor)
     pygame.display.flip()

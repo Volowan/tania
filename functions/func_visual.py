@@ -111,10 +111,9 @@ def draw_fleche(coord_start,coord_end):
     ang_plus = rev_angle+ap_angle
     ang_minus = rev_angle-ap_angle
     little_length=int(width_square/2.5)
-    pygame.draw.line(screen,(255,255,0),coord_start,coord_end,width=(int(width_square/10)))
-    pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]+int(little_length*m.cos(ang_plus)),coord_end[1]+int(little_length*m.sin(ang_plus))),width=(int(width_square/10)))
-    pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]+int(little_length*m.cos(ang_minus)),coord_end[1]+int(little_length*m.sin(ang_minus))),width=(int(width_square/10)))
-    #pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]-width_square//4,coord_end[1]-width_square//3),width=5)
+    pygame.draw.line(screen,(255,255,0),coord_start,coord_end)
+    pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]+int(little_length*m.cos(ang_plus)),coord_end[1]+int(little_length*m.sin(ang_plus))))
+    pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]+int(little_length*m.cos(ang_minus)),coord_end[1]+int(little_length*m.sin(ang_minus))))
 
 def afficherpromotion(position,player_view,sq1,sq2,grabed_piece):
     global width_square,screen

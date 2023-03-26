@@ -1,6 +1,7 @@
 import time
 import os
 import random
+import pygame
 
 from objects.objects import Position
 from params.params import *

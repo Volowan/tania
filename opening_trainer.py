@@ -14,7 +14,7 @@ print(f"Path to main determined as {os.getcwd()}")
 f_utl.check_if_folders_exist(os.getcwd())
 
 
-tested_color = 'w'#'w','b' or 'wb'
+tested_color = 'wb'#'w','b' or 'wb'
 player_view = tested_color[0]
 init_position = Position(starting_fen)
 #curr_position = f_utl.copyposition(init_position)

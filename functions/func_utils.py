@@ -290,11 +290,11 @@ def hum2comp_movename(position,movetext):
 
 def check_if_folders_exist(path_to_main):
     mandatory_folder_from_main = [
-        os.path.join(path_to_main,'..','data'),
-        os.mkdir(os.path.join(path_to_main,'..','data','pgn')),
-        os.mkdir(os.path.join(path_to_main,'..','data','pgn','white_openings')),
-        os.mkdir(os.path.join(path_to_main,'..','data','pgn','black_openings')),
-        os.mkdir(os.path.join(path_to_main,'..','data','pgn','drop'))
+        os.path.join(path_to_main,'data'),
+        os.path.join(path_to_main,'data','pgn'),
+        os.path.join(path_to_main,'data','pgn','white_openings'),
+        os.path.join(path_to_main,'data','pgn','black_openings'),
+        os.path.join(path_to_main,'data','pgn','drop')
     ]
     for path in mandatory_folder_from_main:
         if not os.path.exists(path):

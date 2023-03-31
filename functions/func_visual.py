@@ -82,8 +82,8 @@ def afficherpieces(position,width_square,side,coord_piece,grabed_piece,mousepos)
             screen.blit(chosen_pieces_sprite,(mousepos[0]-width_square//2,mousepos[1]-width_square//2),pieceonsprite)
 
 def affichertexte(texte1,texte2):
-        text_1 = arial_font.render(texte1, True, (0,0,0))
-        text_2 = arial_font.render(texte2, True, (0,0,0))
+        text_1 = arial_font.render(texte1, True, (255,255,255))
+        text_2 = arial_font.render(texte2, True, (255,255,255))
         screen.blit(text_1, (border_chessboard_pix +10,10))
         screen.blit(text_2, (border_chessboard_pix+10,40))
 
@@ -111,9 +111,9 @@ def draw_fleche(coord_start,coord_end):
     ang_plus = rev_angle+ap_angle
     ang_minus = rev_angle-ap_angle
     little_length=int(width_square/2.5)
-    pygame.draw.line(screen,(255,255,0),coord_start,coord_end)
-    pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]+int(little_length*m.cos(ang_plus)),coord_end[1]+int(little_length*m.sin(ang_plus))))
-    pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]+int(little_length*m.cos(ang_minus)),coord_end[1]+int(little_length*m.sin(ang_minus))))
+    pygame.draw.line(screen,(255,255,0),coord_start,coord_end,width=(int(width_square/10)))
+    pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]+int(little_length*m.cos(ang_plus)),coord_end[1]+int(little_length*m.sin(ang_plus))),width=(int(width_square/10)))
+    pygame.draw.line(screen,(255,255,0),coord_end,(coord_end[0]+int(little_length*m.cos(ang_minus)),coord_end[1]+int(little_length*m.sin(ang_minus))),width=(int(width_square/10)))
 
 def afficherpromotion(position,player_view,sq1,sq2,grabed_piece):
     global width_square,screen
@@ -126,10 +126,10 @@ def afficherpromotion(position,player_view,sq1,sq2,grabed_piece):
     screen.blit(chosen_pieces_sprite,(2*width_square,3.5*width_square),(1*width_square,height_sprite*width_square,4*width_square,width_square))
     pygame.display.flip()
 
-def make_move_animation(position,player_view,sq1,sq2,piece):
+def make_move_animation(position,player_view,sq1,sq2,piece,texte1=""):
     start_x,start_y = f_utl.middlesquare2pos(sq1,player_view)
     end_x,end_y = f_utl.middlesquare2pos(sq2,player_view)
     visual_steps = int(f_utl.dist(sq2[0]-sq1[0],sq2[1]-sq1[1])*7)
     for i in range(visual_steps+1):
-        actualiserfenetre(position,player_view,[],coord_piece = sq1 ,grabed_piece = piece, mousepos = ((1-i/visual_steps)*start_x+(i/visual_steps)*end_x,(1-i/visual_steps)*start_y+(i/visual_steps)*end_y))
+        actualiserfenetre(position,player_view,[],coord_piece = sq1 ,grabed_piece = piece, mousepos = ((1-i/visual_steps)*start_x+(i/visual_steps)*end_x,(1-i/visual_steps)*start_y+(i/visual_steps)*end_y),texte1=texte1)
         pygame.time.delay(5)

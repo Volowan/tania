@@ -6,6 +6,7 @@ pygame.init()
 launched = True
 screen = pygame.display.set_mode((1,1))
 miniboard = False
+neo_chess_set = True
 mouse_pressed = False
 
 tania_version = 'beta'
@@ -32,10 +33,10 @@ promotion_showed = False
 
 if not miniboard:
     border_chessboard_pix = 800
-    chosen_pieces_sprite = pygame.image.load('data/images/Chess_Pieces_Sprite_Reduced.png')
+    chosen_pieces_sprite = pygame.image.load('data/images/Chess_Pieces_Sprite_Reduced.png') if neo_chess_set == False else pygame.image.load('data/images/Neo_Chess_Pieces_Sprite_Reduced.png')
 else:
     border_chessboard_pix = 400
-    chosen_pieces_sprite = pygame.image.load('data/images/Chess_Pieces_Sprite_Mini.png')
+    chosen_pieces_sprite = pygame.image.load('data/images/Chess_Pieces_Sprite_Mini.png') if neo_chess_set == False else pygame.image.load('data/images/Neo_Chess_Pieces_Sprite_Mini.png')
 
 width_square = border_chessboard_pix//8#px
 

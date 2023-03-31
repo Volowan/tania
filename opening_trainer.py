@@ -15,7 +15,7 @@ print(f"Path to main determined as {os.getcwd()}")
 f_utl.check_if_folders_exist(os.getcwd())
 
 
-tested_color = 'wb'#'w','b' or 'wb'
+tested_color = 'w'#'w','b' or 'wb'
 player_view = tested_color[0]
 init_position = Position(starting_fen)
 #curr_position = f_utl.copyposition(init_position)
@@ -47,7 +47,8 @@ legal_moves = f_chs.all_legal_moves(curr_position)
 player_view = all_training_lines[index_line_questionned][2]
 f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
 asked_line_list = asked_line.split()
-print(f"Asking line {index_line_questionned+1}/{len(all_training_lines)}")
+#print(f"Asking line {index_line_questionned+1}/{len(all_training_lines)}")
+text1=f"line {index_line_questionned+1:02}/{len(all_training_lines)}"
 correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[0])
 #print(f"correct move is {correct_move}")
 semi_move_number = 0
@@ -55,10 +56,10 @@ semi_move_number = 0
 if curr_position.player != all_training_lines[index_line_questionned][2]:
     correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
     last_move = correct_move
-    f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]])
+    f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]],texte1=text1)
     curr_position = f_chs.make_move(curr_position,correct_move)
     legal_moves = f_chs.all_legal_moves(curr_position)
-    f_vis.actualiserfenetre(curr_position,player_view,[],last_move=last_move)
+    f_vis.actualiserfenetre(curr_position,player_view,[],last_move=last_move,texte1=text1)
     semi_move_number += 1
     correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
 
@@ -72,15 +73,17 @@ pygame.time.set_timer(banana_event, banana_delay)
 promotion = False
 
 while launched:
-    pygame.display.flip()
+    #pygame.display.flip()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             launched = False
+        if event.type in [pygame.WINDOWFOCUSGAINED, pygame.WINDOWMOVED, pygame.WINDOWENTER]:#Instead of flip at each run, I think it will be more efficient
+            pygame.display.flip()
         if promotion == False:
             if event.type == banana_event:
                 if mouse_pressed and grabed_piece != ' ':
                     x,y = pygame.mouse.get_pos()
-                    f_vis.actualiserfenetre(curr_position,player_view,arrows_list,coord_piece = sq1,grabed_piece = grabed_piece,mousepos = (x,y),last_move=last_move)
+                    f_vis.actualiserfenetre(curr_position,player_view,arrows_list,coord_piece = sq1,grabed_piece = grabed_piece,mousepos = (x,y),last_move=last_move,texte1=text1)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button ==1:#left click
                     arrows_list = []
@@ -93,19 +96,20 @@ while launched:
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.button ==1:#left click
                     mouse_pressed = False
-                    f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
+                    f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
                     sq2 = f_utl.mousepos2square(event.pos,player_view)
                     #print(f"move done is {(sq1,sq2)}")
                     if (sq1,sq2) == correct_move:
                         last_move = (sq1,sq2)
                         curr_position = f_chs.make_move(curr_position,(sq1,sq2))
-                        f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
+                        f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
                         semi_move_number += 1
                         if len(asked_line_list) == semi_move_number:
                             time.sleep(2)
                             last_move = None
                             index_line_questionned += 1
-                            print(f"Asking line {index_line_questionned+1}/{len(all_training_lines)}")
+                            #print(f"Asking line {index_line_questionned+1}/{len(all_training_lines)}")
+                            text1=f"line {index_line_questionned+1:02}/{len(all_training_lines)}"
                             #print(f"len of all_training_lines {len(all_training_lines)} and index {index_line_questionned}")
                             #print(f"training list == training redo : {all_training_lines== all_training_lines_redo }")
                             if len(all_training_lines) == index_line_questionned and (len(all_training_lines_redo)==0 or all_training_lines == all_training_lines_redo):
@@ -120,30 +124,30 @@ while launched:
                             asked_line_list = all_training_lines[index_line_questionned][1].split()
                             player_view = all_training_lines[index_line_questionned][2]
                             curr_position = f_utl.copyposition(Position(all_training_lines[index_line_questionned][0]))
-                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,all_training_lines[index_line_questionned][2])
+                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,all_training_lines[index_line_questionned][2],texte1=text1)
                             correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[0])
                             #print(f"Next correct move is {correct_move}")
                             if curr_position.player != all_training_lines[index_line_questionned][2]:
                                 time.sleep(0.5)
                                 correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
                                 last_move = correct_move
-                                f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]])
+                                f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]],texte1=text1)
                                 curr_position = f_chs.make_move(curr_position,correct_move)
                                 legal_moves = f_chs.all_legal_moves(curr_position)
-                                f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
+                                f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
                                 semi_move_number += 1
                                 correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
                                 #print(f"Next correct move is {correct_move}")
                             #print(f"Correct move is {correct_move}")
-                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
+                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
                         else:
                             time.sleep(0.5)
                             correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
                             last_move = correct_move
-                            f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]])
+                            f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]],texte1=text1)
                             curr_position = f_chs.make_move(curr_position,correct_move)
                             legal_moves = f_chs.all_legal_moves(curr_position)
-                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
+                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
                             semi_move_number += 1
                             #print(f"Correct move is {f_utl.coord_to_filerow(correct_move[0])} to {f_utl.coord_to_filerow(correct_move[1])}")
                             #print(f"Im here and I am asking f_utl.hum2comp_movename(curr_position,{asked_line_list[semi_move_number]})")
@@ -151,7 +155,7 @@ while launched:
                             #print(f"Next correct move is {correct_move}")
                     elif (sq1,sq2) in legal_moves:
                         print("Line added to revision")
-                        print(f"Correct move was {f_utl.coord_to_filerow(correct_move[0])} to {f_utl.coord_to_filerow(correct_move[1])}")
+                        print(f"Correct move was {asked_line_list[semi_move_number]}")
                         if all_training_lines[index_line_questionned] not in all_training_lines_redo:
                             for i in range(number_of_repetitons):
                                 all_training_lines_redo.append(all_training_lines[index_line_questionned])
@@ -171,7 +175,7 @@ while launched:
                             arrows_list.append((sq1_arrow,sq2_arrow))
                         else:
                             arrows_list.remove((sq1_arrow,sq2_arrow))
-                        f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
+                        f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
         elif promotion == True:
             if not promotion_showed:
                 f_vis.afficherpromotion(curr_position,player_view,sq1,sq2,grabed_piece)
@@ -193,7 +197,7 @@ while launched:
                     if (sq1,(sq2[0],sq2[1],letter)) == correct_move:
                         curr_position = f_chs.make_move(curr_position,(sq1,(sq2[0],sq2[1],letter)))
                         last_move = (sq1,sq2)
-                        f_vis.actualiserfenetre(curr_position,player_view,[],all_training_lines[index_line_questionned][2],last_move=last_move)
+                        f_vis.actualiserfenetre(curr_position,player_view,[],all_training_lines[index_line_questionned][2],last_move=last_move,texte1=text1)
                         semi_move_number += 1
                         if len(asked_line_list) == semi_move_number:
                             time.sleep(2)
@@ -213,30 +217,30 @@ while launched:
                             asked_line_list = all_training_lines[index_line_questionned][1].split()
                             player_view = all_training_lines[index_line_questionned][2]
                             curr_position = f_utl.copyposition(Position(all_training_lines[index_line_questionned][0]))
-                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,all_training_lines[index_line_questionned][2])
+                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,all_training_lines[index_line_questionned][2],texte1=text1)
                             correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[0])
                             #print(f"Next correct move is {correct_move}")
                             if curr_position.player != all_training_lines[index_line_questionned][2]:
                                 time.sleep(0.5)
                                 correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
                                 last_move = correct_move
-                                f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]])
+                                f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]],texte1=text1)
                                 curr_position = f_chs.make_move(curr_position,correct_move)
                                 legal_moves = f_chs.all_legal_moves(curr_position)
-                                f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
+                                f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
                                 semi_move_number += 1
                                 correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
                                 #print(f"Next correct move is {correct_move}")
                             #print(f"Correct move is {correct_move}")
-                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
+                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
                         else:
                             time.sleep(0.5)
                             correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
                             last_move = correct_move
-                            f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]])
+                            f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]],texte1=text1)
                             curr_position = f_chs.make_move(curr_position,correct_move)
                             legal_moves = f_chs.all_legal_moves(curr_position)
-                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move)
+                            f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
                             semi_move_number += 1
                             #print(f"Correct move is {f_utl.coord_to_filerow(correct_move[0])} to {f_utl.coord_to_filerow(correct_move[1])}")
                             #print(f"Im here and I am asking f_utl.hum2comp_movename(curr_position,{asked_line_list[semi_move_number]})")
@@ -244,7 +248,7 @@ while launched:
                             #print(f"Next correct move is {correct_move}")
                     else:
                         print("Line added to revision")
-                        print(f"Correct move was {f_utl.coord_to_filerow(correct_move[0])} to {f_utl.coord_to_filerow(correct_move[1])}")
+                        print(f"Correct move was {asked_line_list[semi_move_number]}")
                         if all_training_lines[index_line_questionned] not in all_training_lines_redo:
                             for i in range(number_of_repetitons):
                                 all_training_lines_redo.append(all_training_lines[index_line_questionned])

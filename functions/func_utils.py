@@ -4,6 +4,7 @@ This file contains utilitary functions
 import os
 import objects.objects as obj
 from params.params import *
+import time
 
 def dist(x,y):
     return((x**2+y**2)**0.5)
@@ -114,9 +115,18 @@ def get_all_lines_from_clean_line(starting_fen,long_line,color):
     return(all_lines)
 """
 def get_all_lines_from_clean_line(starting_fen,long_line,color):
+    init_time = time.time()
     all_lines = []
     current_line = []
     long_line_list = long_line.split()
+    print("Initial long_line_list is")
+    print(long_line_list)
+    for i in range(len(long_line_list)-1,-1,-1):
+        if long_line_list[i][0] == '$':
+            if long_line_list[i][-1] == ')':
+                long_line_list[i] = ')'
+            else:
+                del long_line_list[i]
     #print(f"long line list = {long_line_list}")
     while long_line_list:
         last_opening_parenthesis = 0
@@ -132,12 +142,19 @@ def get_all_lines_from_clean_line(starting_fen,long_line,color):
                 #print(long_line_list)
                 long_line_list = long_line_list[:last_opening_parenthesis]+long_line_list[index_move+1:]
                 current_line = []
+                #print(long_line_list)
                 break
             else:
                 current_line.append(move)
         if last_opening_parenthesis == 0:
             all_lines.append([starting_fen,' '.join(current_line),color])
             long_line_list = ''
+        if time.time()-init_time > 5:
+            print("Probably stuck with the import of lines")
+            print(long_line_list)
+            exit()
+
+
     return(all_lines)
 
 
@@ -155,8 +172,24 @@ def eliminate_useless_in_long_line(long_line):
                     long_line = long_line[:indexparopen]+long_line[j+1:]
                     break
     long_line_sub = long_line.split("(")#It is not mandatory to take ) into account for now
+    print("Initial long_line_sub:")
+    for sub in long_line_sub:
+        print(sub)
     for i in range(len(long_line_sub)):
-        long_line_sub[i] = ' '.join([texte for texte in long_line_sub[i].split() if (texte[0].isalpha() or texte==')')])#Suppress all non moves numbers
+        temporary_list = []
+        for texte in long_line_sub[i].split():
+            if texte[0].isalpha() or texte == ')':
+                temporary_list.append(texte)
+            if texte[0] == '$' and texte[-1] == ')':
+                try:
+                    temporary_list[-1]+=')'
+                except:
+                    print(f"Temporary list is {temporary_list}")
+                    print(f"actual index is {i}")
+                    for sub in long_line_sub:
+                        print(sub)
+                    exit()
+        long_line_sub[i] = ' '.join(temporary_list)#Suppress all non moves numbers
     long_line = ' ('.join(long_line_sub)#)
     #print(long_line)
     return(long_line)
@@ -280,7 +313,6 @@ def hum2comp_movename(position,movetext):
             starting_coord = possible_piece_position[0]
             return((starting_coord,arriving_coord))
         else:
-            print(f"on line 249, movetext = {movetext}")
             confusion = movetext[1:]
             human_possible_piece_position = [coord_to_filerow(c) for c in possible_piece_position]
             for i in range(len(possible_piece_position)):

@@ -32,12 +32,7 @@ all_training_lines = f_utl.get_all_lines_from_folder(os.path.join('.',os.path.jo
 all_training_lines_redo = []
 all_lines_length = len(all_training_lines)
 index_line_questionned = 0
-if range_asked != (0,0):
-    all_training_lines = all_training_lines[range_asked[0]-1:range_asked[1]]
-if shuffle:
-    random.shuffle(all_training_lines)
-if number_of_lines_asked != 0:
-    all_training_lines = all_training_lines[:number_of_lines_asked]
+#random.shuffle(all_training_lines)
 for i,line in enumerate(all_training_lines):
     print(f"{i+1:02}: {line[1]}")
 asked_line = all_training_lines[index_line_questionned][1]

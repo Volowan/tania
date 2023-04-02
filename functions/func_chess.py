@@ -159,7 +159,7 @@ def make_move(positionn,move):
         elif sq2 == position.enpassantcoord:
             enpassant_happened = True
         elif sq2[1] in [0,7]:
-            piece = sq2[2]
+            piece = sq2[2] if position.player == 'w' else sq2[2].lower()
     elif arrivingletter.isalpha():
         newfiftymoves = 0
     board = position.board

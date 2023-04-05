@@ -9,9 +9,9 @@ miniboard = False
 neo_chess_set = True
 mouse_pressed = False
 
-shuffle = False
-number_of_lines_asked = 10 #0 = all, else the number
-range_asked = (11,20) #(0,0) = all
+shuffle = True
+number_of_lines_asked = 0 #0 = all, else the number
+range_asked = (0,0) #(0,0) = all
 
 tania_version = 'beta'
 

@@ -94,8 +94,8 @@ def get_all_lines_from_clean_line(starting_fen,long_line,color):
     all_lines = []
     current_line = []
     long_line_list = long_line.split()
-    print("Initial long_line_list is")
-    print(long_line_list)
+    #print("Initial long_line_list is")
+    #print(long_line_list)
     for i in range(len(long_line_list)-1,-1,-1):
         if long_line_list[i][0] == '$':
             if long_line_list[i][-1] == ')':
@@ -143,9 +143,11 @@ def eliminate_useless_in_long_line(long_line):
                     long_line = long_line[:indexparopen]+long_line[j+1:]
                     break
     long_line_sub = long_line.split("(")#It is not mandatory to take ) into account for now
+    """
     print("Initial long_line_sub:")
     for sub in long_line_sub:
         print(sub)
+    """
     for i in range(len(long_line_sub)):
         temporary_list = []
         for texte in long_line_sub[i].split():
@@ -184,30 +186,27 @@ def clean_line(rawline):
 def get_all_lines_from_folder(path_of_opening,color_tested):
     all_lines=[]
     if 'b' in color_tested:
-        path = os.path.join(path_of_opening,'black_openings')
-        files = os.listdir(path)
-        all_lines_one_file = []
-        index_line = 1
-        for file in files:
-            if os.path.isfile(os.path.join(path, file)):
-                all_lines_one_file = get_all_lines_from_pgn(os.path.join(path, file),'b')
-                print(f"Lines {index_line} to {index_line+len(all_lines_one_file)-1}")
-                index_line += len(all_lines_one_file)
-                all_lines = all_lines + all_lines_one_file
+        all_lines += get_all_lines_from_subfolder(path_of_opening,'black_openings','b')
     if 'w' in color_tested:
-        path = os.path.join(path_of_opening,'white_openings')
-        files = os.listdir(path)
-        all_lines_one_file = []
-        index_line = 1
-        for file in files:
-            if os.path.isfile(os.path.join(path, file)):
-                all_lines_one_file = get_all_lines_from_pgn(os.path.join(path, file),'w')
-                print(f"Lines {index_line} to {index_line+len(all_lines_one_file)-1}")
-                index_line += len(all_lines_one_file)
-                all_lines = all_lines + all_lines_one_file
-    elif color_tested == 'o':
-        path = os.path.join(path_of_opening,'other_positions')
+        all_lines += get_all_lines_from_subfolder(path_of_opening,'white_openings','w')
     return(all_lines)
+
+def get_all_lines_from_subfolder(path_of_opening,subfolder,unique_color):
+    path = os.path.join(path_of_opening,subfolder)
+    files = os.listdir(path)
+    all_lines = []
+    all_lines_one_file = []
+    index_line = 1
+    for file in files:
+        if os.path.isfile(os.path.join(path, file)):
+            print(f"Reading {os.path.join(path, file)}")
+            all_lines_one_file = get_all_lines_from_pgn(os.path.join(path, file),unique_color)
+            print(f"Lines {index_line} to {index_line+len(all_lines_one_file)-1}")
+            index_line += len(all_lines_one_file)
+            all_lines = all_lines + all_lines_one_file
+        elif os.path.isdir(os.path.join(path, file)):
+            all_lines = all_lines + get_all_lines_from_subfolder(os.path.join(path_of_opening,subfolder),file,unique_color)
+    return all_lines
 
 
 def board2fen(board,player,castle,enpassant,fiftymoves,movenum):

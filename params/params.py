@@ -51,7 +51,7 @@ res_screen = (border_chessboard_pix+menu_width_pix, border_chessboard_pix)
 setcolor1 = [(130, 150, 130),(100, 120, 100),(160, 170, 80),(140, 150, 65),(200, 200, 200),(255,100,100),(255,70,70)]
 setcolor2 = [(136,164,186),(105,134,152),(149,184,114),(132,165,94),(70,70,70),(255,100,100),(255,70,70)]
 
-colorlight,colordark,colorlighthighlight,colordarkhighlight,backgroundcolor,colorlightevidence,colordarkevidence = setcolor2
+colorlight,colordark,colorlighthighlight,colordarkhighlight,backgroundcolor,colorlightevidence,colordarkevidence = setcolor1
 
 possprite = {
     'K':(0,0),

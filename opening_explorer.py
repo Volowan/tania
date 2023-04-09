@@ -29,10 +29,16 @@ last_move = None
 
 training_finished = False
 all_training_lines = f_utl.get_all_lines_from_folder(os.path.join('.',os.path.join('data','pgn')),tested_color)
+all_known_lines = all_training_lines.copy()
 all_training_lines_redo = []
 all_lines_length = len(all_training_lines)
 index_line_questionned = 0
-#random.shuffle(all_training_lines)
+if range_asked != (0,0):
+    all_training_lines = all_training_lines[range_asked[0]-1:range_asked[1]]
+if shuffle:
+    random.shuffle(all_training_lines)
+if number_of_lines_asked != 0:
+    all_training_lines = all_training_lines[:number_of_lines_asked]
 for i,line in enumerate(all_training_lines):
     print(f"{i+1:02}: {line[1]}")
 asked_line = all_training_lines[index_line_questionned][1]
@@ -101,6 +107,8 @@ while launched:
                             text1=f"line {index_line_questionned+1:02}/{len(all_training_lines)}"
                             if len(all_training_lines) == index_line_questionned and (len(all_training_lines_redo)==0 or all_training_lines == all_training_lines_redo):
                                 print("Training finished")
+                                text1="End"
+                                f_vis.actualiserfenetre(curr_position,player_view,arrows_list,all_training_lines[index_line_questionned-1][2],texte1=text1)
                                 launched = False
                                 time.sleep(5)
                                 continue
@@ -125,10 +133,22 @@ while launched:
                                 correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
                             f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
                         else:
-                            time.sleep(0.5)
+                            for line in all_known_lines:
+                                alternative_line_list = line[1].split()
+                                print(f"alternative line : {alternative_line_list}")
+                                if asked_line_list[:semi_move_number] == alternative_line_list[:semi_move_number]:
+                                    alternative_move = f_utl.hum2comp_movename(curr_position,alternative_line_list[semi_move_number])
+                                    arrows_list.append(alternative_move)
+                            arrows_list = list(set(arrows_list))
+                            if len(arrows_list) > 1:
+                                f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
+                                time.sleep(10)
+                            else:
+                                time.sleep(0.5)
                             correct_move = f_utl.hum2comp_movename(curr_position,asked_line_list[semi_move_number])
                             last_move = correct_move
                             f_vis.make_move_animation(curr_position,player_view,correct_move[0],correct_move[1],curr_position.board[7-correct_move[0][1]][correct_move[0][0]],texte1=text1)
+                            arrows_list = []
                             curr_position = f_chs.make_move(curr_position,correct_move)
                             legal_moves = f_chs.all_legal_moves(curr_position)
                             f_vis.actualiserfenetre(curr_position,player_view,arrows_list,last_move=last_move,texte1=text1)
